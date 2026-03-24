@@ -1,0 +1,24 @@
+{
+  "name": "event-finder",
+  "version": "1.0.0",
+  "description": "Event Venue Booking System - Production Ready",
+  "private": true,
+  "scripts": {
+    "start": "concurrently \"npm run start:server\" \"npm run start:client\"",
+    "start:server": "cd server && npm run start:dev",
+    "start:client": "cd client && npm run dev",
+    "build": "npm run build:server && npm run build:client",
+    "build:server": "cd server && npm run build",
+    "build:client": "cd client && npm run build",
+    "test": "npm run test:server",
+    "test:server": "cd server && npm test",
+    "seed": "cd server && npx ts-node --project tsconfig.json src/database/seed.ts",
+    "install:all": "npm install && cd server && npm install && cd ../client && npm install"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "keywords": ["event", "venue", "booking", "nestjs", "react", "typescript"],
+  "author": "EventFinder Team",
+  "license": "MIT"
+}

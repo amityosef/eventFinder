@@ -1,0 +1,16 @@
+export const strings = {
+    filters: 'filters',
+    clear: 'clear',
+    city: 'city',
+    allCities: 'allCities',
+    venueType: 'venueType',
+    allTypes: 'allTypes',
+    guestCount: 'guestCount',
+    min: 'min',
+    max: 'max',
+    priceRange: 'priceRange',
+    kosherOnly: 'kosherOnly',
+    eventDate: 'eventDate',
+    startDate: 'startDate',
+    endDate: 'endDate',
+};
