@@ -32,6 +32,15 @@ const AboutPage = lazy(() =>
 const ContactPage = lazy(() =>
   import('./pages/contact').then((m) => ({ default: m.ContactPage }))
 );
+const FavoritesPage = lazy(() =>
+  import('./pages/favorites').then((m) => ({ default: m.FavoritesPage }))
+);
+const VenueEditPage = lazy(() =>
+  import('./pages/dashboard').then((m) => ({ default: m.VenueEditPage }))
+);
+const VenueCreatePage = lazy(() =>
+  import('./pages/dashboard').then((m) => ({ default: m.VenueCreatePage }))
+);
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const { isAuthenticated } = useAuthStore();
@@ -54,11 +63,28 @@ function App() {
             <Route path="register" element={<RegisterPage />} />
             <Route path="about" element={<AboutPage />} />
             <Route path="contact" element={<ContactPage />} />
+            <Route path="favorites" element={<FavoritesPage />} />
             <Route
               path="dashboard"
               element={
                 <ProtectedRoute>
                   <DashboardPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="dashboard/venues/:id/edit"
+              element={
+                <ProtectedRoute>
+                  <VenueEditPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="dashboard/venues/new"
+              element={
+                <ProtectedRoute>
+                  <VenueCreatePage />
                 </ProtectedRoute>
               }
             />

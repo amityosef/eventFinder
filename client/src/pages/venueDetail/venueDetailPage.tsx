@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import {
@@ -32,6 +32,7 @@ import { LeadForm } from '@/components/leadForm';
 import { AvailabilityCalendar } from '@/components/availabilityCalendar';
 import { MapSection } from '@/components/mapSection';
 import { useVenue } from '@/hooks/data';
+import { addFavoriteVenue, isFavoriteVenue, removeFavoriteVenue } from '@/utils/favorites';
 import * as styles from './styles';
 
 export const VenueDetailPage = () => {
@@ -40,6 +41,29 @@ export const VenueDetailPage = () => {
   const [isFavorite, setIsFavorite] = useState(false);
 
   const { data: venue, isLoading } = useVenue(id);
+
+  useEffect(() => {
+    if (!id) {
+      return;
+    }
+
+    setIsFavorite(isFavoriteVenue(id));
+  }, [id]);
+
+  const handleToggleFavorite = () => {
+    if (!id) {
+      return;
+    }
+
+    const nextFavorite = !isFavorite;
+    setIsFavorite(nextFavorite);
+
+    if (nextFavorite) {
+      addFavoriteVenue(id);
+    } else {
+      removeFavoriteVenue(id);
+    }
+  };
 
   if (isLoading) {
     return <VenueDetailSkeleton />;
@@ -119,7 +143,7 @@ export const VenueDetailPage = () => {
               </Box>
               <Box sx={styles.actionsStyles}>
                 <IconButton
-                  onClick={() => setIsFavorite(!isFavorite)}
+                  onClick={handleToggleFavorite}
                   sx={styles.actionButtonStyles}
                 >
                   {isFavorite ? (

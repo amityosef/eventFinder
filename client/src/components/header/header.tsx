@@ -104,7 +104,7 @@ export const Header = () => {
 
   return (
     <AppBar position="sticky" sx={styles.appBarStyles}>
-      <Container maxWidth="xxl">
+      <Container maxWidth={false}>
         <Toolbar disableGutters sx={styles.toolbarStyles}>
           {/* Logo */}
           <Link to="/" style={{ textDecoration: 'none' }}>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import {
@@ -20,6 +20,7 @@ import {
   Restaurant,
 } from '@mui/icons-material';
 import { Venue } from '@/types';
+import { addFavoriteVenue, isFavoriteVenue, removeFavoriteVenue } from '@/utils/favorites';
 import * as styles from './styles';
 
 interface VenueCardProps {
@@ -30,14 +31,25 @@ interface VenueCardProps {
 
 export const VenueCard = ({ venue, onFavorite, isFavorite = false }: VenueCardProps) => {
   const { t } = useTranslation();
-  const [favorite, setFavorite] = useState(isFavorite);
+  const [favorite, setFavorite] = useState(isFavorite || isFavoriteVenue(venue._id));
   const [imageError, setImageError] = useState(false);
+
+  useEffect(() => {
+    setFavorite(isFavorite || isFavoriteVenue(venue._id));
+  }, [isFavorite, venue._id]);
 
   const handleFavoriteClick = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     const newFavorite = !favorite;
     setFavorite(newFavorite);
+
+    if (newFavorite) {
+      addFavoriteVenue(venue._id);
+    } else {
+      removeFavoriteVenue(venue._id);
+    }
+
     onFavorite?.(venue._id, newFavorite);
   };
 
