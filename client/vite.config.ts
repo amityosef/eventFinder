@@ -8,13 +8,12 @@ export default defineConfig({
     react(),
     Sitemap({
       hostname: 'https://event-finder-swart.vercel.app',
-      dynamicRoutes: ["/search",
+      dynamicRoutes: [
+        "/search",
         "/venues",
-        "/login",
-        "/register",
         "/about",
         "/contact",
-        "/dashboard",]
+      ]
     }),
   ],
   resolve: {
@@ -27,19 +26,6 @@ export default defineConfig({
       '@store': path.resolve(__dirname, './src/store'),
       '@utils': path.resolve(__dirname, './src/utils'),
       '@types': path.resolve(__dirname, './src/types'),
-    },
-  },
-  server: {
-    port: 5173,
-    proxy: {
-      '/api': {
-        target: 'http://localhost:3000',
-        changeOrigin: true,
-      },
-      '/uploads': {
-        target: 'http://localhost:3000',
-        changeOrigin: true,
-      },
     },
   },
   build: {
