@@ -36,6 +36,12 @@ export const Footer = () => {
     { label: t('privateSalons'), path: '/search?type=privateSalon' },
   ];
 
+  const legalLinks = [
+    { label: t('privacyPolicy'), path: '/privacy' },
+    { label: t('termsOfService'), path: '/terms' },
+    { label: 'הצהרת נגישות', path: '/accessibility' },
+  ];
+
   return (
     <Box component="footer" sx={styles.footerStyles}>
       <Container maxWidth="xl">
@@ -98,8 +104,22 @@ export const Footer = () => {
             </Box>
           </Grid>
 
+          {/* Legal & Accessibility */}
+          <Grid item xs={6} sm={3} md={2}>
+            <Typography variant="subtitle1" fontWeight={600} gutterBottom>
+              משפטי ונגישות
+            </Typography>
+            <Box sx={styles.linkListStyles}>
+              {legalLinks.map((link) => (
+                <Link key={link.path} to={link.path} style={styles.linkStyles}>
+                  {link.label}
+                </Link>
+              ))}
+            </Box>
+          </Grid>
+
           {/* Contact Info */}
-          <Grid item xs={12} sm={6} md={4}>
+          <Grid item xs={6} sm={3} md={2}>
             <Typography variant="subtitle1" fontWeight={600} gutterBottom>
               {t('contactUs')}
             </Typography>
@@ -127,14 +147,6 @@ export const Footer = () => {
           <Typography variant="body2" color="text.secondary">
             © {currentYear} EventFinder. {t('allRightsReserved')}
           </Typography>
-          <Box sx={styles.legalLinksStyles}>
-            <Link to="/privacy" style={styles.legalLinkStyles}>
-              {t('privacyPolicy')}
-            </Link>
-            <Link to="/terms" style={styles.legalLinkStyles}>
-              {t('termsOfService')}
-            </Link>
-          </Box>
         </Box>
       </Container>
     </Box>

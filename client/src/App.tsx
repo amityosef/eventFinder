@@ -41,6 +41,15 @@ const VenueEditPage = lazy(() =>
 const VenueCreatePage = lazy(() =>
   import('./pages/dashboard').then((m) => ({ default: m.VenueCreatePage }))
 );
+const PrivacyPolicyPage = lazy(() =>
+  import('./pages/legal').then((m) => ({ default: m.PrivacyPolicyPage }))
+);
+const TermsOfUsePage = lazy(() =>
+  import('./pages/legal').then((m) => ({ default: m.TermsOfUsePage }))
+);
+const AccessibilityStatementPage = lazy(() =>
+  import('./pages/legal').then((m) => ({ default: m.AccessibilityStatementPage }))
+);
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const { isAuthenticated } = useAuthStore();
@@ -63,6 +72,9 @@ function App() {
             <Route path="register" element={<RegisterPage />} />
             <Route path="about" element={<AboutPage />} />
             <Route path="contact" element={<ContactPage />} />
+            <Route path="privacy" element={<PrivacyPolicyPage />} />
+            <Route path="terms" element={<TermsOfUsePage />} />
+            <Route path="accessibility" element={<AccessibilityStatementPage />} />
             <Route path="favorites" element={<FavoritesPage />} />
             <Route
               path="dashboard"
