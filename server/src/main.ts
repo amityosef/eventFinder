@@ -18,7 +18,7 @@ async function bootstrap() {
   });
 
   const configService = app.get(ConfigService);
-  const port = parseInt(process.env.PORT || "10000") || configService.get<number>('PORT', 10000);
+  const port = 10000;
   const apiPrefix = configService.get<string>('API_PREFIX', 'api');
   const corsOrigin = configService.get<string>('CORS_ORIGIN', 'http://localhost:5173');
 
