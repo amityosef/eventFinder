@@ -25,7 +25,7 @@ export const logoIconStyles: SystemStyleObject = {
   width: 40,
   height: 40,
   borderRadius: 2,
-  backgroundColor: 'primary.main',
+  // backgroundColor: 'primary.main',
   color: 'white',
 };
 

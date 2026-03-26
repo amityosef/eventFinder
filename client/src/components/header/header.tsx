@@ -37,6 +37,7 @@ import { api } from '@/services/api';
 import { useSnackbar } from '../snackbar';
 import * as styles from './styles';
 import { strings } from './strings';
+import logo from "../../assets/logo.png"
 
 export const Header = () => {
   const { t, i18n } = useTranslation();
@@ -103,15 +104,16 @@ export const Header = () => {
 
   return (
     <AppBar position="sticky" sx={styles.appBarStyles}>
-      <Container maxWidth="xl">
+      <Container maxWidth="xxl">
         <Toolbar disableGutters sx={styles.toolbarStyles}>
           {/* Logo */}
           <Link to="/" style={{ textDecoration: 'none' }}>
             <Box sx={styles.logoStyles}>
               <Box sx={styles.logoIconStyles}>
-                <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+                {/* <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
                   <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-                </svg>
+                </svg> */}
+                <img src={logo} alt="EventFinder Logo" style={{ width: 32, height: 32 }} />
               </Box>
               <Box component="span" sx={styles.logoTextStyles}>
                 EventFinder
