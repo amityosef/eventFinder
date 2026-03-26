@@ -18,7 +18,7 @@ async function bootstrap() {
   });
 
   const configService = app.get(ConfigService);
-  const port = configService.get<number>('PORT', 3000);
+  const port = parseInt(process.env.PORT || "10000") || configService.get<number>('PORT', 10000);
   const apiPrefix = configService.get<string>('API_PREFIX', 'api');
   const corsOrigin = configService.get<string>('CORS_ORIGIN', 'http://localhost:5173');
 
@@ -58,7 +58,7 @@ async function bootstrap() {
   await app.listen(port, '0.0.0.0');
 
   const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http';
-  
+
   logger.log(`🚀 Server running on ${protocol}://localhost:${port}`);
   logger.log(`📚 API Documentation: ${protocol}://localhost:${port}/swagger`);
   logger.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
