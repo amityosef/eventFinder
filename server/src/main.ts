@@ -3,8 +3,6 @@ import { ValidationPipe, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import helmet from 'helmet';
 import * as compression from 'compression';
-import * as fs from 'fs';
-import * as path from 'path';
 import { AppModule } from './app.module';
 import { HttpExceptionFilter } from './common/filters/httpException.filter';
 import { TransformInterceptor } from './common/interceptors/transform.interceptor';
@@ -13,30 +11,10 @@ import { setupSwagger } from './config/swagger.config';
 async function bootstrap() {
   const logger = new Logger('Bootstrap');
 
-  let httpsOptions = undefined;
-  const sslKeyPath = process.env.SSL_KEY_PATH;
-  const sslCertPath = process.env.SSL_CERT_PATH;
-
-  if (sslKeyPath && sslCertPath) {
-    try {
-      const keyPath = path.resolve(__dirname, '..', sslKeyPath);
-      const certPath = path.resolve(__dirname, '..', sslCertPath);
-
-      if (fs.existsSync(keyPath) && fs.existsSync(certPath)) {
-        httpsOptions = {
-          key: fs.readFileSync(keyPath),
-          cert: fs.readFileSync(certPath),
-        };
-        logger.log('SSL certificates loaded successfully');
-      }
-    } catch (error) {
-      logger.warn('SSL certificates not found, running in HTTP mode');
-    }
-  }
-
   const app = await NestFactory.create(AppModule, {
-    httpsOptions,
-    logger: ['error', 'warn', 'log', 'debug', 'verbose'],
+    logger: process.env.NODE_ENV === 'production'
+      ? ['error', 'warn', 'log']
+      : ['error', 'warn', 'log', 'debug', 'verbose'],
   });
 
   const configService = app.get(ConfigService);
@@ -77,9 +55,10 @@ async function bootstrap() {
   setupSwagger(app, port);
   logger.log('Swagger documentation available at /swagger and /docs');
 
-  await app.listen(port);
+  await app.listen(port, '0.0.0.0');
 
-  const protocol = httpsOptions ? 'https' : 'http';
+  const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http';
+  
   logger.log(`🚀 Server running on ${protocol}://localhost:${port}`);
   logger.log(`📚 API Documentation: ${protocol}://localhost:${port}/swagger`);
   logger.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);

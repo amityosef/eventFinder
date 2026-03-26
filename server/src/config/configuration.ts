@@ -50,14 +50,4 @@ export const configuration = () => ({
     ttl: parseInt(process.env.THROTTLE_TTL || '60000', 10),
     limit: parseInt(process.env.THROTTLE_LIMIT || '100', 10),
   },
-
-  upload: {
-    maxFileSize: parseInt(process.env.MAX_FILE_SIZE || '10485760', 10),
-    path: process.env.UPLOAD_PATH || './uploads',
-  },
-
-  ssl: {
-    keyPath: process.env.SSL_KEY_PATH,
-    certPath: process.env.SSL_CERT_PATH,
-  },
 });

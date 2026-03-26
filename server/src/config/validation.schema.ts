@@ -46,12 +46,4 @@ export const validationSchema = Joi.object({
   // Throttle
   THROTTLE_TTL: Joi.number().default(60000),
   THROTTLE_LIMIT: Joi.number().default(100),
-
-  // Upload
-  MAX_FILE_SIZE: Joi.number().default(10485760),
-  UPLOAD_PATH: Joi.string().default('./uploads'),
-
-  // SSL
-  SSL_KEY_PATH: Joi.string().optional(),
-  SSL_CERT_PATH: Joi.string().optional(),
 });
